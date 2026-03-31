@@ -8,15 +8,18 @@ import { minimap } from "../extensions/minimap";
 import { customTheme } from "../extensions/theme";
 import { getLanguageExtension } from "../extensions/language-extension";
 import { customSetup } from "../extensions/custom-setup";
+import { suggestion } from "../extensions/suggestion";
+import { quickEdit } from "../extensions/quick-edit";
+import { selectionTooltip } from "../extensions/selection-tooltip";
 
 interface Props {
-  filename: string;
+  fileName: string;
   initialValue?: string;
   onChange: (value: string) => void;
 }
 
 export const CodeEditor = ({
-  filename,
+  fileName,
   initialValue = "",
   onChange,
 }: Props) => {
@@ -24,8 +27,8 @@ export const CodeEditor = ({
   const viewRef = useRef<EditorView | null>(null);
 
   const languageExtension = useMemo(
-    () => getLanguageExtension(filename),
-    [filename],
+    () => getLanguageExtension(fileName),
+    [fileName],
   );
 
   useEffect(() => {
@@ -39,6 +42,9 @@ export const CodeEditor = ({
         customTheme,
         customSetup,
         languageExtension,
+        suggestion(fileName),
+        quickEdit(fileName),
+        selectionTooltip(),
         keymap.of([indentWithTab]),
         minimap(),
         indentationMarkers(),

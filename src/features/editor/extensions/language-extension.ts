@@ -6,8 +6,8 @@ import { json } from "@codemirror/lang-json";
 import { markdown } from "@codemirror/lang-markdown";
 import { python } from "@codemirror/lang-python";
 
-export const getLanguageExtension = (filename: string): Extension => {
-  const ext = filename.split(".").pop()?.toLowerCase();
+export const getLanguageExtension = (fileName: string): Extension => {
+  const ext = fileName.split(".").pop()?.toLowerCase();
 
   switch (ext) {
     case "js":
